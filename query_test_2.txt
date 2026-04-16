@@ -41,6 +41,12 @@ JOIN degrees ON degrees.id = courses.degree_id
 JOIN departments ON departments.id = degrees.department_id
 WHERE departments.name = 'Dipartimento di Matematica';
 
+-- 7. BONUS: Selezionare per ogni studente il numero di tentativi sostenuti per ogni esame, stampando anche il voto massimo. Successivamente, filtrare i tentativi con voto minimo 18.
+SELECT student_id, exam_id, COUNT(*) AS numero_tentativi, MAX(vote) AS voto_massimo
+FROM exam_student
+GROUP BY student_id, exam_id
+HAVING MAX(vote) >= 18;
+
 ------
 
 -- 1. Contare quanti iscritti ci sono stati ogni anno
@@ -67,3 +73,4 @@ COUNT(degrees.id) AS numero_corsi_di_laurea
 FROM departments
 JOIN degrees ON degrees.department_id = departments.id
 GROUP BY departments.id, departments.name
+
